@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -8,6 +9,7 @@ import {
 } from '@remix-run/react';
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
 
+import { links as navLinks } from '~/constants';
 import globalStyles from '~/styles/global.css';
 
 export const meta: MetaFunction = () => ({
@@ -31,7 +33,20 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <nav>
+          <ul>
+            {navLinks.map(({ link, title }) => (
+              <li key={link}>
+                <Link to={link}>{title}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <main>
+          <Outlet />
+        </main>
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
