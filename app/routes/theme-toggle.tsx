@@ -1,6 +1,6 @@
 import RouteTitle from '~/components/RouteTitle';
 
-export default function WebAnimationApiRoute() {
+export default function ThemeToggleRoute() {
   return (
     <div>
       <RouteTitle />

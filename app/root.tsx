@@ -33,8 +33,8 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <nav>
-          <ul>
+        <nav className='navbar'>
+          <ul className='container'>
             {navLinks.map(({ link, title }) => (
               <li key={link}>
                 <Link to={link}>{title}</Link>
@@ -43,7 +43,7 @@ export default function App() {
           </ul>
         </nav>
 
-        <main>
+        <main className='container'>
           <Outlet />
         </main>
 

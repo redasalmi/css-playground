@@ -9,5 +9,5 @@ export default function RouteTitle() {
     return null;
   }
 
-  return <h1>{link?.title}</h1>;
+  return <h1 className="route-title">{link?.title}</h1>;
 }

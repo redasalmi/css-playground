@@ -21,6 +21,30 @@ html {
   margin-left: auto;
 }
 
+.navbar {
+  padding: 18px 0;
+}
+
+.navbar ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(40px, auto);
+
+  list-style: none;
+}
+
+.navbar ul li {
+  margin: 8px 0;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+}
+
+.route-title {
+  text-align: center;
+}
+
 @media (--small) {
   .container {
     max-width: 540px;

@@ -1,6 +1,6 @@
 import RouteTitle from '~/components/RouteTitle';
 
-export default function SvgDrawing() {
+export default function SvgDrawingRoute() {
   return (
     <div>
       <RouteTitle />

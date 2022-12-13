@@ -1,6 +1,6 @@
 import RouteTitle from '~/components/RouteTitle';
 
-export default function Buttons() {
+export default function ButtonsRoute() {
   return (
     <div>
       <RouteTitle />
