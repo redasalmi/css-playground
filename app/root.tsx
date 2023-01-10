@@ -1,5 +1,5 @@
 import {
-  Link,
+  NavLink,
   Links,
   LiveReload,
   Meta,
@@ -33,17 +33,24 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <nav className='navbar'>
-          <ul className='container'>
+        <nav className="navbar">
+          <ul className="container">
             {navLinks.map(({ link, title }) => (
               <li key={link}>
-                <Link to={link}>{title}</Link>
+                <NavLink
+                  to={link}
+                  className={({ isActive }) =>
+                    isActive ? 'active-link' : undefined
+                  }
+                >
+                  {title}
+                </NavLink>
               </li>
             ))}
           </ul>
         </nav>
 
-        <main className='container'>
+        <main className="container">
           <Outlet />
         </main>
 

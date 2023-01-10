@@ -41,6 +41,12 @@ html {
   text-decoration: none;
 }
 
+.navbar .active-link {
+  color: #000000;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .route-title {
   text-align: center;
 }

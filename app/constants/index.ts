@@ -43,13 +43,9 @@ export const links = [
   const linkA = itemA.link.toUpperCase();
   const linkB = itemB.link.toUpperCase();
 
-  if (linkA < linkB) {
-    return -1;
+  if (linkA === linkB) {
+    return 0;
   }
 
-  if (linkA > linkB) {
-    return 1;
-  }
-
-  return 0;
+  return linkA < linkB ? -1 : 1;
 });
