@@ -10,7 +10,7 @@ import {
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
 
 import { links as navLinks } from '~/constants';
-import globalStyles from '~/styles/global.css';
+import styles from './tailwind.css';
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
@@ -21,7 +21,7 @@ export const meta: MetaFunction = () => ({
 export const links: LinksFunction = () => [
   {
     rel: 'stylesheet',
-    href: globalStyles,
+    href: styles,
   },
 ];
 
@@ -32,15 +32,15 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <nav className="navbar">
-          <ul className="container">
+      <body className="min-h-screen">
+        <nav className="container m-auto py-4">
+          <ul className="grid auto-rows-[minmax(40px,_auto)] grid-cols-3">
             {navLinks.map(({ link, title }) => (
               <li key={link}>
                 <NavLink
                   to={link}
                   className={({ isActive }) =>
-                    isActive ? 'active-link' : undefined
+                    isActive ? 'font-bold text-blue-500 underline' : undefined
                   }
                 >
                   {title}
@@ -50,7 +50,7 @@ export default function App() {
           </ul>
         </nav>
 
-        <main className="container">
+        <main className="container m-auto">
           <Outlet />
         </main>
 
