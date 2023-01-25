@@ -19,7 +19,7 @@ const {
 } = animationsTypes;
 
 type AnimationKeys = keyof typeof animationsTypes;
-type Animation = typeof animationsTypes[AnimationKeys];
+type Animation = (typeof animationsTypes)[AnimationKeys];
 
 const isAnimation = (animation: any): animation is Animation => {
   return Object.values(animationsTypes).includes(animation);
@@ -37,33 +37,37 @@ export default function DialogElementRoute() {
 
   React.useEffect(() => {
     let closeTimer: NodeJS.Timeout;
+    const dialog = dialogRef.current;
 
-    const clickOutside = (event: MouseEvent) => {
+    const clickOutside = (event: MouseEvent | Event) => {
+      event.preventDefault();
       const { target } = event;
 
       if (
-        dialogRef.current.open &&
+        dialog.open &&
         target instanceof Node &&
         !dialogContentRef.current.contains(target)
       ) {
-        if (dialogRef.current.classList.contains(showFromTop)) {
+        if (dialog.classList.contains(showFromTop)) {
           updateDialogAnimation(hideToTop);
-        } else if (dialogRef.current.classList.contains(showfromBottom)) {
+        } else if (dialog.classList.contains(showfromBottom)) {
           updateDialogAnimation(hideToBottom);
-        } else if (dialogRef.current.classList.contains(showfromCenter)) {
+        } else if (dialog.classList.contains(showfromCenter)) {
           updateDialogAnimation(hideToCenter);
         }
 
         closeTimer = setTimeout(() => {
-          dialogRef.current.close();
+          dialog.close();
           document.body.style.overflow = 'initial';
         }, 600);
       }
     };
 
+    dialog.addEventListener('cancel', clickOutside);
     document.body.addEventListener('click', clickOutside);
 
     return () => {
+      dialog.removeEventListener('cancel', clickOutside);
       document.body.removeEventListener('click', clickOutside);
       clearTimeout(closeTimer);
     };
