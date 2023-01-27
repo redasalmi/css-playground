@@ -24,7 +24,7 @@ export const links = [
     link: '/book-scroll',
   },
   {
-    title: 'Dialog Element',
+    title: 'Dialog Element ✅',
     link: '/dialog-element',
   },
   {
