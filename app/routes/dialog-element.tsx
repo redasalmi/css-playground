@@ -137,7 +137,7 @@ export default function DialogElementRoute() {
         Open Dialog
       </button>
       <select
-        className="ml-4 h-10 rounded-md px-4 py-2"
+        className="ml-4 h-10 rounded-md bg-blue-500 px-4 py-2 text-white"
         onChange={handleAnimationChange}
       >
         {animationsOptions.map(({ value, label }) => (
