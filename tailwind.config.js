@@ -3,6 +3,9 @@ module.exports = {
   content: ['./app/**/*.{ts,tsx,jsx,js}'],
   theme: {
     extend: {
+      fontFamily: {
+        cyberwayRider: ['Cyberway-Riders'],
+      },
       keyframes: {
         'show-from-top': {
           from: { transform: 'translateY(-55vh)' },

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { toCssValue } from '~/utils';
 
 const animationsTypes = {
   showFromTop: 'open:animate-show-from-top',
@@ -27,10 +28,6 @@ type Animation = (typeof animationsTypes)[AnimationKeys];
 
 function isAnimation(animation: any): animation is Animation {
   return Object.values(animationsTypes).includes(animation);
-}
-
-function valueInPx(value: number) {
-  return `${parseFloat(value.toString())}px`;
 }
 
 const animationsOptions = [
@@ -109,10 +106,10 @@ export default function DialogElementRoute() {
     const openBtn = openBtnRef.current;
 
     const { top, left, width, height } = openBtn.getBoundingClientRect();
-    dialog.style.setProperty('--btn-top', valueInPx(top));
-    dialog.style.setProperty('--btn-left', valueInPx(left));
-    dialog.style.setProperty('--btn-width', valueInPx(width));
-    dialog.style.setProperty('--btn-height', valueInPx(height));
+    dialog.style.setProperty('--btn-top', toCssValue(top));
+    dialog.style.setProperty('--btn-left', toCssValue(left));
+    dialog.style.setProperty('--btn-width', toCssValue(width));
+    dialog.style.setProperty('--btn-height', toCssValue(height));
 
     dialog.classList.remove(...Object.values(animationsTypes));
     dialog.classList.add(animation);
@@ -128,7 +125,7 @@ export default function DialogElementRoute() {
   };
 
   return (
-    <div className="mt-8">
+    <div className="container mx-auto">
       <button
         ref={openBtnRef}
         onClick={() => openDialog()}
