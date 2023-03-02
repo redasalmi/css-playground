@@ -3,7 +3,7 @@ import { getRandomInt } from '~/utils';
 
 function Button({ children }: { children: React.ReactNode }) {
   return (
-    <button className="mt-6 block rounded-tr-3xl rounded-bl-3xl rounded-br-md rounded-tl-md border-4 border-cyan-400 bg-blue-200 bg-opacity-20 py-8 px-24 font-cyberwayRider text-6xl text-white first:mt-0">
+    <button className="relative mt-6 block rounded-tr-3xl rounded-bl-3xl rounded-br-md rounded-tl-md border-4 border-cyan-400 bg-blue-200 bg-opacity-20 py-8 px-24 font-cyberwayRider text-6xl text-white first:mt-0">
       {children}
     </button>
   );
@@ -28,7 +28,7 @@ export default function GameMenuRoute() {
   const oldRotation = React.useRef(randomRotation());
   const newRotation = React.useRef(randomRotation());
 
-  const setAnimationValues = (duration: number, initialPosition = false) => {
+  const setAnimationValues = (initialPosition = false) => {
     const { x: oldX, y: oldY, angle: oldAngle } = oldRotation.current;
     const { x: newX, y: newY, angle: newAngle } = newRotation.current;
 
@@ -43,7 +43,7 @@ export default function GameMenuRoute() {
     }
 
     const timing: KeyframeAnimationOptions = {
-      duration,
+      duration: 3000,
       fill: 'forwards',
     };
 
@@ -53,9 +53,9 @@ export default function GameMenuRoute() {
   };
 
   React.useEffect(() => {
-    setAnimationValues(3000, true);
+    setAnimationValues(true);
     const interval = setInterval(() => {
-      setAnimationValues(3000);
+      setAnimationValues();
     }, 3000);
 
     return () => {

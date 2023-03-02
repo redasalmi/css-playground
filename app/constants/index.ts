@@ -28,7 +28,7 @@ export const links = [
     link: '/dialog-element',
   },
   {
-    title: 'Game Menu',
+    title: 'Game Menu ✅',
     link: '/game-menu',
   },
   {
