@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss';
+
+const config = {
   content: ['./app/**/*.{ts,tsx,jsx,js}'],
   theme: {
     extend: {
@@ -25,10 +26,10 @@ module.exports = {
             left: 'var(--btn-left)',
             width: 'var(--btn-width)',
             height: 'var(--btn-height)',
-            margin: 0,
+            margin: '0',
           },
           to: {
-            inset: 0,
+            inset: '0',
             width: '24rem',
             height: '24rem',
             margin: 'calc(50vh - 24rem / 2) calc(50vw - 24rem / 2)',
@@ -48,7 +49,7 @@ module.exports = {
         },
         'hide-to-button': {
           from: {
-            inset: 0,
+            inset: '0',
             width: '24rem',
             height: '24rem',
             margin: 'calc(50vh - 24rem / 2) calc(50vw - 24rem / 2)',
@@ -58,7 +59,7 @@ module.exports = {
             left: 'var(--btn-left)',
             width: 'var(--btn-width)',
             height: 'var(--btn-height)',
-            margin: 0,
+            margin: '0',
           },
         },
       },
@@ -75,4 +76,6 @@ module.exports = {
     },
   },
   plugins: [],
-};
+} satisfies Config;
+
+export default config;
