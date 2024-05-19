@@ -1,7 +1,6 @@
 import {
 	NavLink,
 	Links,
-	LiveReload,
 	Meta,
 	Outlet,
 	Scripts,

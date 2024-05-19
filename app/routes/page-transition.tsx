@@ -1,3 +1,3 @@
 export default function PageTransitionRoute() {
-  return <div></div>;
+	return <div></div>;
 }

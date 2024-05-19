@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: 'Cyberway-Riders';
-    src: url('./assets/font/cyberway-riders/cyberway-riders.otf')
-      format('opentype');
-  }
+	@font-face {
+		font-family: 'Cyberway-Riders';
+		src: url('./assets/font/cyberway-riders/cyberway-riders.otf')
+			format('opentype');
+	}
 }

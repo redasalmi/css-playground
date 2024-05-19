@@ -1,3 +1,3 @@
 export default function MouseMaskRoute() {
-  return <div></div>;
+	return <div></div>;
 }

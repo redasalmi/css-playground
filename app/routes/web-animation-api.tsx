@@ -1,3 +1,3 @@
 export default function WebAnimationApiRoute() {
-  return <div></div>;
+	return <div></div>;
 }

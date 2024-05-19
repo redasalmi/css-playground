@@ -1,3 +1,3 @@
 export default function ThemeToggleRoute() {
-  return <div></div>;
+	return <div></div>;
 }
