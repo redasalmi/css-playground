@@ -1,5 +1,23 @@
 import * as React from 'react';
+import type { LinksFunction } from '@remix-run/node';
 import { getRandomInt } from '~/utils';
+import cyberwayRiders from '~/assets/font/cyberway-riders/cyberway-riders.otf?url';
+import styles from '~/assets/css/game-menu.css?url';
+
+export const links: LinksFunction = () => {
+	return [
+		{
+			rel: 'preload',
+			href: cyberwayRiders,
+			as: 'font',
+			crossOrigin: 'anonymous',
+		},
+		{
+			rel: 'stylesheet',
+			href: styles,
+		},
+	];
+};
 
 function Button({ children }: { children: React.ReactNode }) {
 	return (
