@@ -11,22 +11,30 @@ import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import { links as navLinks } from '~/constants';
 import styles from '~/tailwind.css?url';
 
-export const meta: MetaFunction = () => [
-	{
-		charset: 'utf-8',
-		title: 'CSS Playground',
-		viewport: 'width=device-width,initial-scale=1',
-	},
-];
+export const meta: MetaFunction = () => {
+	return [
+		{
+			charset: 'utf-8',
+			title: 'CSS Playground',
+			viewport: 'width=device-width,initial-scale=1',
+		},
+	];
+};
 
-export const links: LinksFunction = () => [
-	{
-		rel: 'stylesheet',
-		href: styles,
-	},
-];
+export const links: LinksFunction = () => {
+	return [
+		{
+			rel: 'stylesheet',
+			href: styles,
+		},
+	];
+};
 
-export default function App() {
+type LayoutProps = {
+	children: React.ReactNode;
+};
+
+export function Layout({ children }: LayoutProps) {
 	return (
 		<html lang="en">
 			<head>
@@ -50,14 +58,14 @@ export default function App() {
 						))}
 					</ul>
 				</nav>
-
-				<main>
-					<Outlet />
-				</main>
-
+				<main>{children}</main>
 				<ScrollRestoration />
 				<Scripts />
 			</body>
 		</html>
 	);
+}
+
+export default function App() {
+	return <Outlet />;
 }
