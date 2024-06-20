@@ -10,7 +10,7 @@ import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import CheckMark from '~/assets/icons/check-mark.svg';
 
 import { links as navLinks } from '~/constants';
-import tailwind from '~/tailwind.css?url';
+import stylesReset from '~/assets/css/css-reset.css?url';
 import styles from '~/assets/css/global.css?url';
 
 export const meta: MetaFunction = () => {
@@ -27,7 +27,7 @@ export const links: LinksFunction = () => {
 	return [
 		{
 			rel: 'stylesheet',
-			href: tailwind,
+			href: stylesReset,
 		},
 		{
 			rel: 'stylesheet',
@@ -47,15 +47,15 @@ export function Layout({ children }: LayoutProps) {
 				<Meta />
 				<Links />
 			</head>
-			<body className="grid min-h-screen grid-rows-[min-content,_1fr]">
-				<nav className="container m-auto py-4">
-					<ul className="grid auto-rows-[minmax(40px,_auto)] grid-cols-3">
+			<body>
+				<nav className="container navbar">
+					<ul className="grid auto-rows-[minmax(40px,_auto)] grid-cols-3 navbar-links">
 						{navLinks.map(({ link, title, done }) => (
 							<li key={link}>
 								<NavLink
 									to={link}
 									className={({ isActive }) =>
-										`flex gap-1 ${isActive ? 'font-bold text-blue-500 underline' : ''}`.trim()
+										`navbar-link ${isActive ? 'navbar-active-link' : ''}`.trim()
 									}
 								>
 									<span>{title}</span>

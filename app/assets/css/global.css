@@ -3,6 +3,36 @@
 	margin: 0 auto;
 }
 
+.navbar {
+	margin: 16px auto;
+
+	.navbar-links {
+		display: grid;
+		gap: 16px;
+		grid-template-columns: repeat(3, 1fr);
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.navbar-link {
+		display: flex;
+		gap: 4px;
+		justify-items: center;
+		text-decoration: none;
+
+		img {
+			width: 20px;
+		}
+	}
+
+	.navbar-active-link {
+		font-weight: bold;
+		color: #3b82f6;
+		text-decoration: underline;
+	}
+}
+
 @media (min-width: 640px) {
 	.container {
 		max-width: 640px;
