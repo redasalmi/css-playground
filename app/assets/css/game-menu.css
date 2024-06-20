@@ -2,3 +2,41 @@
 	font-family: 'Cyberway-Riders';
 	src: url('../font/cyberway-riders/cyberway-riders.otf') format('opentype');
 }
+
+.button {
+	font-family: Cyberway-Riders;
+	position: relative;
+	margin-top: 24px;
+	display: block;
+	border-bottom-left-radius: 24px;
+	border-bottom-right-radius: 6px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 24px;
+	border-width: 4px;
+	border-color: #22d3ee;
+	background-color: #6947b5;
+	padding: 24px 96px;
+	font-size: 42px;
+	color: #ffffff;
+
+	&:first-of-type {
+		margin-top: 0;
+	}
+}
+
+.link {
+	font-weight: bold;
+	color: #3b82f6;
+	text-decoration: underline;
+}
+
+.menu {
+	margin-top: 24px;
+	display: flex;
+	height: 100vh;
+	background-image: linear-gradient(#4c1d95, #7c3aed);
+
+	.menu-content {
+		margin: auto;
+	}
+}

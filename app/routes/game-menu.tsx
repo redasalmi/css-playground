@@ -20,11 +20,7 @@ export const links: LinksFunction = () => {
 };
 
 function Button({ children }: { children: React.ReactNode }) {
-	return (
-		<button className="relative mt-6 block rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl border-4 border-cyan-400 bg-blue-200 bg-opacity-20 px-24 py-8 font-cyberwayRider text-6xl text-white first:mt-0">
-			{children}
-		</button>
-	);
+	return <button className="button">{children}</button>;
 }
 
 function randomRotation() {
@@ -83,20 +79,20 @@ export default function GameMenuRoute() {
 
 	return (
 		<div>
-			<p className="container mx-auto">
+			<p className="container">
 				Inpired by this{' '}
 				<a
 					target="_blank"
 					rel="noreferrer"
-					className="font-bold text-blue-500 underline"
+					className="link"
 					href="https://web.dev/patterns/components/game-menu/demo.html"
 				>
 					Game Menu GUI Challenge
 				</a>
 			</p>
 
-			<div className="mt-6 flex h-screen bg-gradient-to-b from-violet-900 to-violet-600">
-				<div ref={menuRef} className="m-auto">
+			<div className="menu">
+				<div ref={menuRef} className="menu-content">
 					<Button>New Game</Button>
 					<Button>Continue</Button>
 					<Button>Online</Button>

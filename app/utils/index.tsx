@@ -3,8 +3,8 @@ export function valueToCssUnit(value: number, unit: string = 'px') {
 }
 
 export function getRandomInt(min: number, max: number) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
+	const minValue = Math.ceil(min);
+	const maxValue = Math.floor(max);
 
-	return Math.random() * (max - min) + min;
+	return Math.random() * (maxValue - minValue) + minValue;
 }
