@@ -1,52 +1,78 @@
 import * as React from 'react';
-import { toCssValue } from '~/utils';
+import type { LinksFunction } from '@remix-run/node';
+import { valueToCssUnit } from '~/utils';
+import styles from '~/assets/css/dialog-element.css?url';
 
-const animationsTypes = {
-	showFromTop: 'open:animate-show-from-top',
-	showFromBottom: 'open:animate-show-from-bottom',
-	showFromCenter: 'open:animate-show-from-center',
-	showFromButton: 'open:animate-show-from-button',
-	hideToTop: 'animate-hide-to-top',
-	hideToBottom: 'animate-hide-to-bottom',
-	hideToCenter: 'animate-hide-to-center',
-	hideToButton: 'animate-hide-to-button',
-} as const;
+type Animation = {
+	show: string;
+	hide: string;
+};
 
-const {
-	showFromTop,
-	showFromBottom,
-	showFromCenter,
-	showFromButton,
-	hideToTop,
-	hideToBottom,
-	hideToCenter,
-	hideToButton,
-} = animationsTypes;
-
-type AnimationKeys = keyof typeof animationsTypes;
-type Animation = (typeof animationsTypes)[AnimationKeys];
-
-function isAnimation(animation: any): animation is Animation {
-	return Object.values(animationsTypes).includes(animation);
-}
+const animations: Record<string, Animation> = {
+	fromTop: {
+		show: 'slideInFromTop',
+		hide: 'slideOutToTop',
+	},
+	fromBottom: {
+		show: 'slideInFromBottom',
+		hide: 'slideOutToBottom',
+	},
+	fromCenter: {
+		show: 'appearFromCenter',
+		hide: 'hideIntoCenter',
+	},
+	fromButton: {
+		show: 'appearFromElement',
+		hide: 'hideIntoElement',
+	},
+};
 
 const animationsOptions = [
-	{ value: showFromTop, label: 'Show Dialog from Top' },
-	{ value: showFromBottom, label: 'Show Dialog from Bottom' },
-	{ value: showFromCenter, label: 'Show Dialog from Center' },
-	{ value: showFromButton, label: 'Show Dialog from Button' },
+	{
+		key: 'top-option',
+		value: JSON.stringify(animations.fromTop),
+		label: 'Show Dialog from Top',
+	},
+	{
+		key: 'bottom-option',
+		value: JSON.stringify(animations.fromBottom),
+		label: 'Show Dialog from Bottom',
+	},
+	{
+		key: 'center-option',
+		value: JSON.stringify(animations.fromCenter),
+		label: 'Show Dialog from Center',
+	},
+	{
+		key: 'button-option',
+		value: JSON.stringify(animations.fromButton),
+		label: 'Show Dialog from Button',
+	},
 ];
+
+export const links: LinksFunction = () => {
+	return [
+		{
+			rel: 'stylesheet',
+			href: styles,
+		},
+	];
+};
 
 export default function DialogElementRoute() {
 	const openBtnRef = React.useRef<HTMLButtonElement>(null!);
 	const dialogRef = React.useRef<HTMLDialogElement>(null!);
 	const dialogContentRef = React.useRef<HTMLDivElement>(null!);
 
+	const [selectedAnimation, setSelectedAnimation] = React.useState(
+		animations.fromTop,
+	);
+
 	React.useEffect(() => {
 		let closeTimer: NodeJS.Timeout;
 		const dialog = dialogRef.current;
 
-		const clickOutside = (event: Event, preventDefault?: Boolean) => {
+		const clickOutside = (event: Event, preventDefault?: boolean) => {
 			if (preventDefault) {
 				event.preventDefault();
 			}
@@ -57,23 +83,17 @@ export default function DialogElementRoute() {
 				target instanceof Node &&
 				!dialogContentRef.current.contains(target)
 			) {
-				if (dialog.classList.contains(showFromTop)) {
-					updateDialogAnimation(hideToTop);
-				} else if (dialog.classList.contains(showFromBottom)) {
-					updateDialogAnimation(hideToBottom);
-				} else if (dialog.classList.contains(showFromCenter)) {
-					updateDialogAnimation(hideToCenter);
-				} else if (dialog.classList.contains(showFromButton)) {
-					updateDialogAnimation(hideToButton);
-				}
+				dialog.style.animationName = selectedAnimation.hide;
 
 				closeTimer = setTimeout(() => {
+					dialog.style.animationName = '';
 					dialog.close();
 					document.body.style.overflow = 'initial';
 				}, 290);
 			}
 		};
 
+		dialog.style.animationName = selectedAnimation.show;
 		document.body.addEventListener('click', clickOutside);
 		dialog.addEventListener('cancel', (event) => clickOutside(event, true));
 
@@ -82,73 +102,50 @@ export default function DialogElementRoute() {
 			dialog.removeEventListener('cancel', clickOutside);
 			clearTimeout(closeTimer);
 		};
-	}, []);
+	}, [selectedAnimation]);
 
 	const openDialog = () => {
 		const dialog = dialogRef.current;
 		document.body.style.overflow = 'hidden';
 
-		if (dialog.classList.contains(hideToTop)) {
-			updateDialogAnimation(showFromTop);
-		} else if (dialog.classList.contains(hideToBottom)) {
-			updateDialogAnimation(showFromBottom);
-		} else if (dialog.classList.contains(hideToCenter)) {
-			updateDialogAnimation(showFromCenter);
-		} else if (dialog.classList.contains(hideToButton)) {
-			updateDialogAnimation(showFromButton);
-		}
+		const { top, left, width, height } =
+			openBtnRef.current.getBoundingClientRect();
+		dialog.style.setProperty('--btn-top', valueToCssUnit(top));
+		dialog.style.setProperty('--btn-left', valueToCssUnit(left));
+		dialog.style.setProperty('--btn-width', valueToCssUnit(width));
+		dialog.style.setProperty('--btn-height', valueToCssUnit(height));
 
+		dialog.style.animationName = selectedAnimation.show;
 		dialog.showModal();
-	};
-
-	const updateDialogAnimation = (animation: Animation) => {
-		const dialog = dialogRef.current;
-		const openBtn = openBtnRef.current;
-
-		const { top, left, width, height } = openBtn.getBoundingClientRect();
-		dialog.style.setProperty('--btn-top', toCssValue(top));
-		dialog.style.setProperty('--btn-left', toCssValue(left));
-		dialog.style.setProperty('--btn-width', toCssValue(width));
-		dialog.style.setProperty('--btn-height', toCssValue(height));
-
-		dialog.classList.remove(...Object.values(animationsTypes));
-		dialog.classList.add(animation);
 	};
 
 	const handleAnimationChange = (
 		event: React.ChangeEvent<HTMLSelectElement>,
 	) => {
-		const animation = event.target.value;
-		if (isAnimation(animation)) {
-			updateDialogAnimation(animation);
-		}
+		const animation = JSON.parse(event.target.value) as Animation;
+		setSelectedAnimation(animation);
 	};
 
 	return (
-		<div className="container mx-auto">
-			<button
-				ref={openBtnRef}
-				onClick={() => openDialog()}
-				className="h-10 rounded-md bg-blue-500 px-4 py-2 text-white"
-			>
+		<div className="container">
+			<button ref={openBtnRef} onClick={openDialog} className="button">
 				Open Dialog
 			</button>
+
 			<select
-				className="ml-4 h-10 rounded-md bg-blue-500 px-4 py-2 text-white"
+				className="select"
+				value={JSON.stringify(selectedAnimation)}
 				onChange={handleAnimationChange}
 			>
-				{animationsOptions.map(({ value, label }) => (
-					<option key={value} value={value}>
+				{animationsOptions.map(({ key, value, label }) => (
+					<option key={key} value={value}>
 						{label}
 					</option>
 				))}
 			</select>
 
-			<dialog
-				ref={dialogRef}
-				className={`absolute inset-0 m-auto h-96 w-96 rounded-md p-0 shadow backdrop:bg-gray-400 backdrop:bg-opacity-70 ${showFromTop}`}
-			>
-				<div ref={dialogContentRef} className="h-full p-2" />
+			<dialog ref={dialogRef} className="dialog">
+				<div ref={dialogContentRef} className="dialog-content" />
 			</dialog>
 		</div>
 	);

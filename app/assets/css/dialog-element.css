@@ -1,0 +1,126 @@
+.button,
+.select {
+	height: 40px;
+	border-radius: 6px;
+	padding: 8px 16px;
+	background-color: #3b82f6;
+	color: #ffffff;
+}
+
+.select {
+	margin-left: 16px;
+}
+
+.dialog {
+	position: fixed;
+	inset: 0;
+	margin: auto;
+	width: 24rem;
+	height: 24rem;
+	border-radius: 6px;
+	animation-duration: 0.3s;
+	animation-timing-function: ease-in-out;
+
+	.dialog-content {
+		height: 100%;
+		padding: 8px;
+	}
+}
+
+@keyframes slideInFromTop {
+	from {
+		transform: translateY(-55vh);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideInFromBottom {
+	from {
+		transform: translateY(55vh);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideOutToTop {
+	from {
+		transform: translateY(0);
+	}
+
+	to {
+		transform: translateY(-100vh);
+	}
+}
+
+@keyframes slideOutToBottom {
+	from {
+		transform: translateY(0);
+	}
+
+	to {
+		transform: translateY(100vh);
+	}
+}
+
+@keyframes appearFromCenter {
+	from {
+		width: 6rem;
+		height: 6rem;
+	}
+
+	to {
+		width: 24rem;
+		height: 24rem;
+	}
+}
+
+@keyframes hideIntoCenter {
+	from {
+		width: 24rem;
+		height: 24rem;
+	}
+
+	to {
+		width: 6rem;
+		height: 6rem;
+	}
+}
+
+@keyframes appearFromElement {
+	from {
+		top: var(--btn-top);
+		left: var(--btn-left);
+		width: var(--btn-width);
+		height: var(--btn-height);
+		margin: 0;
+	}
+
+	to {
+		inset: 0;
+		width: 24rem;
+		height: 24rem;
+		margin: calc(50vh - 24rem / 2) calc(50vw - 24rem / 2);
+	}
+}
+
+@keyframes hideIntoElement {
+	from {
+		inset: 0;
+		width: 24rem;
+		height: 24rem;
+		margin: calc(50vh - 24rem / 2) calc(50vw - 24rem / 2);
+	}
+
+	to {
+		top: var(--btn-top);
+		left: var(--btn-left);
+		width: var(--btn-width);
+		height: var(--btn-height);
+		margin: 0;
+	}
+}

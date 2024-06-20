@@ -1,4 +1,4 @@
-export function toCssValue(value: number, unit: string = 'px') {
+export function valueToCssUnit(value: number, unit: string = 'px') {
 	return `${parseFloat(value.toString())}${unit}`;
 }
 
