@@ -16,9 +16,11 @@ import styles from '~/assets/css/global.css?url';
 export const meta: MetaFunction = () => {
 	return [
 		{
-			charset: 'utf-8',
 			title: 'CSS Playground',
-			viewport: 'width=device-width,initial-scale=1',
+		},
+		{
+			name: 'description',
+			content: 'CSS Playground',
 		},
 	];
 };
@@ -44,6 +46,8 @@ export function Layout({ children }: LayoutProps) {
 	return (
 		<html lang="en">
 			<head>
+				<meta charSet="utf-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
 			</head>
