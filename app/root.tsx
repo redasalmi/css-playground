@@ -7,6 +7,7 @@ import {
 	ScrollRestoration,
 } from '@remix-run/react';
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
+import CheckMark from '~/assets/icons/check-mark.svg';
 
 import { links as navLinks } from '~/constants';
 import styles from '~/tailwind.css?url';
@@ -44,15 +45,18 @@ export function Layout({ children }: LayoutProps) {
 			<body className="grid min-h-screen grid-rows-[min-content,_1fr]">
 				<nav className="container m-auto py-4">
 					<ul className="grid auto-rows-[minmax(40px,_auto)] grid-cols-3">
-						{navLinks.map(({ link, title }) => (
+						{navLinks.map(({ link, title, done }) => (
 							<li key={link}>
 								<NavLink
 									to={link}
 									className={({ isActive }) =>
-										isActive ? 'font-bold text-blue-500 underline' : undefined
+										`flex gap-1 ${isActive ? 'font-bold text-blue-500 underline' : ''}`.trim()
 									}
 								>
-									{title}
+									<span>{title}</span>
+									{done ? (
+										<img src={CheckMark} alt="check mark" className="w-5" />
+									) : null}
 								</NavLink>
 							</li>
 						))}

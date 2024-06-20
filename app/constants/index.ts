@@ -24,12 +24,14 @@ export const links = [
 		link: '/book-scroll',
 	},
 	{
-		title: 'Dialog Element ✅',
+		title: 'Dialog Element',
 		link: '/dialog-element',
+		done: true,
 	},
 	{
-		title: 'Game Menu ✅',
+		title: 'Game Menu',
 		link: '/game-menu',
+		done: true,
 	},
 	{
 		title: 'Mouse Mask',
