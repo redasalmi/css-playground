@@ -60,6 +60,7 @@ export const links: LinksFunction = () => {
 };
 
 export default function DialogElementRoute() {
+	const selectId = React.useId();
 	const openBtnRef = React.useRef<HTMLButtonElement>(null!);
 	const dialogRef = React.useRef<HTMLDialogElement>(null!);
 	const dialogContentRef = React.useRef<HTMLDivElement>(null!);
@@ -132,7 +133,11 @@ export default function DialogElementRoute() {
 				Open Dialog
 			</button>
 
+			<label htmlFor={selectId} className="visually-hidden">
+				Select animation
+			</label>
 			<select
+				id={selectId}
 				className="select"
 				value={JSON.stringify(selectedAnimation)}
 				onChange={handleAnimationChange}
