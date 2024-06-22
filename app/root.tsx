@@ -10,7 +10,7 @@ import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import CheckMark from '~/assets/icons/check-mark.svg';
 
 import { links as navLinks } from '~/constants';
-import stylesReset from '~/assets/css/css-reset.css?url';
+import stylesReset from 'modern-normalize/modern-normalize.css?url';
 import styles from '~/assets/css/global.css?url';
 
 export const meta: MetaFunction = () => {
